@@ -1,0 +1,15 @@
+.postagens{
+    width: 70%;
+    margin: auto;
+
+}
+.postagens h1{
+    text-align: center;
+}
+.postagensImg{
+    width: 40em;
+    margin: auto;
+}
+.postagensImg img{
+    width: 100%;
+}

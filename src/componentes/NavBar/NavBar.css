@@ -1,0 +1,10 @@
+.navegacao{
+    margin: auto;
+    
+    display: flex;
+    justify-content: space-between;
+}
+input{
+    border-radius: 15px;
+    padding: 3px 10px;
+}
