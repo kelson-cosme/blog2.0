@@ -19,8 +19,10 @@ function Navbar() {
             
         </div>
 
-        <div>
-            <h1>Login</h1>
+        <div className="login">
+            <Link to={"/login"}>
+                <h1>Login</h1>
+            </Link>
         </div>
     </nav>
   )

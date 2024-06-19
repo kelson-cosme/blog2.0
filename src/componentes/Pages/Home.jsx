@@ -9,6 +9,9 @@ import { getFirestore,addDoc, getDocs, collection, documentId } from "firebase/f
 
 import React from "react"
 
+import Navbar from "../NavBar/NavBar";
+import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -21,6 +24,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // Initialize Firestore
 const db = getFirestore(app);
+
+export const storage = getStorage(app)
+
+export const auth = getAuth(app);
 
 
 
@@ -44,6 +51,7 @@ function Home() {
 
   return (
     <>
+            <Navbar/>
 
       <h1 className="apresentacao">Nosso Blog</h1>
       <div className="destaque">

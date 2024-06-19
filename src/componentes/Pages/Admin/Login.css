@@ -1,0 +1,58 @@
+
+.voltar{
+    margin: 2vw;
+    width: 3vw;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.voltar img{
+    width: 100%;
+}
+.admin{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden ;
+}
+.formulario{
+    display: flex;
+    flex-direction: column;
+}
+.formulario h1{
+    font-size: 3vw;
+    text-align: center;
+
+}
+.formulario input{
+    width: 25vw;
+    height: 2vw;
+
+
+
+    padding: 1vw 2vw;
+    margin-bottom: 1vw;
+
+    border: none;
+    font-size: 1.5vw;
+
+    border-radius: 2vw;
+
+}
+.formulario button{
+    width: 25vw;
+
+    border: none;
+    font-size: 2vw;
+    margin: auto;
+    border-radius: 2vw;
+    background-color: #288C0F;
+    color: #ffff;
+}
+label{
+    font-size: 1vw;
+}
+
