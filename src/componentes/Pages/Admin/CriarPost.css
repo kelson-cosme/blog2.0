@@ -1,0 +1,19 @@
+.criarPost{
+    display: inline;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.criarPost input{
+    width: 80%;
+    border: none;
+    border-radius: 0;
+    padding: 10px;
+
+}
+textarea{
+    width: 80%;
+    height: 20vh;
+    padding: 10px;
+}

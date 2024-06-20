@@ -5,7 +5,6 @@ import { getFirestore,addDoc, getDocs, collection, documentId } from "firebase/f
 
 import "./Admin.css"
 
-import { Database } from "firebase/database";
 
 import { useEffect, useState } from "react";
 

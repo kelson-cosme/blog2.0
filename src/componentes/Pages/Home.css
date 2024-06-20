@@ -1,3 +1,6 @@
+.corpo{
+    overflow: hidden;
+}
 .apresentacao{
     font-size: 34px;
     text-align: center;

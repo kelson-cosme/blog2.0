@@ -16,8 +16,6 @@ function Login() {
     const [userLogado, setUserLogado] = useState("")
     
 
-
-
     const handleLogin = async (event) => {
         event.preventDefault();
 
