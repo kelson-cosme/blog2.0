@@ -5,20 +5,19 @@ import { Link } from "react-router-dom";
 
 import {getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 
-import { storage } from "../Home";
-import { auth } from "../Home";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Admin from "./Admin";
-import { set } from "firebase/database";
-
 
 function Login() {
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [userLogado, setUserLogado] = useState("")
+    
+
+
+
     const handleLogin = async (event) => {
         event.preventDefault();
 
@@ -30,7 +29,7 @@ function Login() {
         setUserLogado(uid)
 
         } else {
-            console.log("Ninguem conectado")
+            // console.log("Ninguem conectado")
         }
         });
 
@@ -44,30 +43,23 @@ function Login() {
         }
       };
 
-
-       // Sair
-    function sair(){
-        signOut(auth).then(() => {
-            setUserLogado("")
-            console.log("Sign-out successful")
-            
-            // Sign-out successful.
-          }).catch((error) => {
-            // An error happened.
-          });
-    }
-
+      useEffect( () => {
+        handleLogin(event)
+    },[])
 
 
     return(
         <section  style={{ height: userLogado != "" ? "auto" : "100vh" }} className="admin">
-            <div className="voltar">
+            <div  style={{ display: userLogado != "" ? "none" : "block" }} className="voltar">
                 <Link to="/"><img src={Voltar} alt="seta para voltar" /></Link>
             </div>
+
+            
             
             <div className="areaLogin"  style={{ display: userLogado == "" ? "block" : "none"}}>
                 <form className="formulario" onSubmit={handleLogin}>
                     <h1>Login</h1>
+
                         <label>login</label>
                         <input type="email" onChange={(e) => setEmail(e.target.value)} />
 
@@ -81,11 +73,11 @@ function Login() {
                 {/* <button onClick={sair}>Sair</button> */}
                 <div className="areaAdmin" style={{ display: userLogado != "" ? "block" : "none" }}>
                     <Admin/>
+
+                    <div className="nome">
+                        <h1>Bem vindo {userLogado}</h1>
+                    </div>
                 </div>
-            
-
-
-            
         </section>
 
         
