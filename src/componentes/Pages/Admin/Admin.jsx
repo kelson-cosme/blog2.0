@@ -1,7 +1,7 @@
-import { signOut, getAuth } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { auth, dataBase } from "../Home";
 
-import { getFirestore,addDoc, getDocs, collection, documentId } from "firebase/firestore";
+import { getDocs, collection} from "firebase/firestore";
 
 import "./Admin.css"
 
@@ -15,7 +15,6 @@ function Admin() {
 
     function sair(){
 
-        
         window.location.reload(true);
 
         signOut(auth).then(() => {
@@ -44,9 +43,43 @@ function Admin() {
               getProdutos(dataBase)
             }, []);
 
+    const [tituloE, setTituloE] = useState()
+    const [descricaoE, setDescricaoE] = useState()
+    const [conteudoE, setConteudoE] = useState()
+    const [imagemE, setImagemE] = useState()
+    const [mostrar, setMostrar] = useState(false)
+
+    function editar(e){
+        let identificador = e.target.id
+        setTituloE(posts.posts[identificador].titulo) //valor titulo
+        setDescricaoE(posts.posts[identificador].descricao)
+        setConteudoE(posts.posts[identificador].conteudo)
+        setImagemE(posts.posts[identificador].imagem)
+
+        setMostrar(true)
+
+        const abaEditar = document.getElementById("abaEditar")
+        // abaEditar.style.transform = "translateX(0)"
+    }
+
+    function getEditar(){
+        setMostrar(false)
+
+    }
 
     return(
         <div className="administrador">
+            <div style={{ transform: mostrar != false ? "translateX(0)" : "translateX(102%)" }} id="abaEditar" className="abaEditar">
+                <button onClick={() => setMostrar(false)} className="fechar">X</button>
+                
+                <input type="text" value={tituloE} name="" id="" />
+                <input type="text" value={descricaoE} name="" id="" />
+                <input type="text" value={conteudoE} name="" id="" />
+                {/* <img src={imagemE} alt="" /> */}
+                <button onClick={getEditar}>Editar</button>
+            </div>
+
+
             <h1 className="apresentacao">Todos os Posts</h1>
 
             <ul className="todosPosts">
@@ -63,7 +96,7 @@ function Admin() {
                             </div>
                             
                             <div className="botoes">
-                                <button id={doc.id} className="editar">Editar</button>
+                                <button  onClick={editar} id={index} className="editar">Editar</button>
                                 <button id={doc.id} className="excluir">Excluir</button>
                             </div>
 

@@ -84,7 +84,9 @@ function Home() {
         posts.posts.map( (doc,index) => (
           <li key={index}>
             <Link to={`/detalhes/${index}`}>
+            <div className="postagemImg"> 
               <img src={doc.imagem} alt="" />
+            </div>
               <h1>{doc.titulo}</h1> 
               <p className="categoria">{doc.categoria}</p>
               <p>{doc.descricao}</p>
