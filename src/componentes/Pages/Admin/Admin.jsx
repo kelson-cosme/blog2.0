@@ -55,7 +55,7 @@ function Admin() {
                         <li id={doc.id} key={index}>
                             <div className="title">
                                 <div className="titleImg">
-                                    <img src="https://static.vecteezy.com/ti/fotos-gratis/t2/17323707-close-up-de-um-reptil-em-um-galho-de-arvore-contra-um-impressionante-papel-de-parede-de-fundo-natural-hd-foto.jpg" alt="" />
+                                    <img src={doc.imagem} alt="" />
                                 </div>
 
 

@@ -81,11 +81,11 @@ function Home() {
 
     <ul className="postagem">
       {posts && 
-        posts.posts.map( (doc) => (
-          <li>
-            <Link to={`/detalhes/${doc.id}`}>
-              <img src="https://ciclovivo.com.br/wp-content/uploads/2018/10/iStock-536613027-1024x683.jpg" alt="" />
-              <h1>{doc.titulo}</h1>  
+        posts.posts.map( (doc,index) => (
+          <li key={index}>
+            <Link to={`/detalhes/${index}`}>
+              <img src={doc.imagem} alt="" />
+              <h1>{doc.titulo}</h1> 
               <p className="categoria">{doc.categoria}</p>
               <p>{doc.descricao}</p>
             </Link>

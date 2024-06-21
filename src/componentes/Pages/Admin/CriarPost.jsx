@@ -3,7 +3,7 @@ import React from "react";
 import {getAuth, onAuthStateChanged } from 'firebase/auth';
 import { storage } from "../Home";
 import { ref, getDownloadURL, uploadBytesResumable} from "firebase/storage";
-import { collection, addDoc,doc, updateDoc, increment} from "firebase/firestore";
+import { doc, updateDoc, arrayUnion} from "firebase/firestore";
 
 import { dataBase } from "../Home";
 
@@ -38,8 +38,6 @@ function criarPost(){
     const [titulo, setTitulo] = useState();
     const [descricao, setDescricao] = useState();
     const [conteudo, setConteudo] = useState();
-    const [imagem, setImagem] = useState();
-
 
     const [imgURL, setImgURL] = useState(""); //URL da imagens
     const [progressPorcent, setPorgessPorcent] = useState(0); //Pegar o progresso
@@ -51,10 +49,11 @@ function criarPost(){
     
         const storageRef = ref(storage, `images/${file.name}`); //referencia
         const uploadTask = uploadBytesResumable(storageRef, file);
-    
+
         uploadTask.on(
           "state_changed",
           (snapshot) => {
+            // Exibir progresso de upload, se necessário
             const progress = Math.round(
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100
             );
@@ -63,40 +62,39 @@ function criarPost(){
           (error) => {
             alert(error);
           },
-          () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          async () => {
+            try {
+              const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+              console.log("URL da imagem:", downloadURL);
               setImgURL(downloadURL);
-                setImagem(downloadURL)
-            });
-
-            
+              console.log("imgURL atualizado:", imgURL); // Verifica se imgURL foi atualizado corretamente
+              await adicionarAoCampoPosts(downloadURL);
+            } catch (error) {
+              console.error("Erro ao obter o URL da imagem: ", error);
+            }
           }
         );
-      };
+    };
 
 
-    //   Atualizar um documento a seleção 
-    const getAdicionar = () => {
-        const teste = doc(dataBase, "posts", "63xCjIWESjdLAi4r5Q0i", "posts");
-        updateDoc(teste, {
-            nome: increment(titulo)
-        });
-    }
-    
-
-    //   const getAdicionar = () => {
-    //     if(titulo && descricao && conteudo && imagem !== ""){
-    //         addDoc(collection(dataBase, "posts"), {
-    //             nome: titulo,
-    //             sobrenome: descricao
-    //           });
-    //           //zerar os imputs
-    //           setTitulo("");
-    //           setDescricao("");
-    //           setConteudo("");
-    //           setImagem("");
-    //       };
-    //     }
+      //adicionar ao compo posts
+      const adicionarAoCampoPosts = async () => {
+        try {
+            const docRef = doc(dataBase, "posts", "63xCjIWESjdLAi4r5Q0i"); // Referência ao documento específico
+            await updateDoc(docRef, {
+                posts: arrayUnion({
+                    titulo: titulo,
+                    descricao: descricao,
+                    conteudo: conteudo,
+                    categoria: "tecnologia",
+                    imagem: imgURL
+                }) // Adicionando um novo objeto ao array 'posts'
+            });
+            console.log("Campo 'posts' atualizado com sucesso!");
+          } catch (error) {
+            console.error("Erro ao atualizar o campo 'posts': ", error);
+        }
+    };
 
 
 
@@ -116,7 +114,7 @@ function criarPost(){
                 <input type="file" />
                 {!imgURL && <p>{progressPorcent}%</p>} {/*nao tiver imagem mostrar a barra de prograsso*/} 
 
-                <button onClick={getAdicionar} type="submit">Salvar</button>
+                <button type="submit">Salvar</button>
 
                 
             </form>

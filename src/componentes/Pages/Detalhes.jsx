@@ -8,7 +8,7 @@ import "../Pages/Home.css"
 import { useEffect, useState } from "react"
 
 import { initializeApp } from 'firebase/app';
-import { getFirestore,addDoc, getDocs, collection, documentId } from "firebase/firestore";
+import { getFirestore, getDocs, collection } from "firebase/firestore";
 
 import React from "react"
 
@@ -50,7 +50,7 @@ function Detalhes() {
       <h1>{posts && posts.posts[id].titulo}</h1>
 
       <div className="postagensImg">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSknS9XBN_xYlrwQszz68wG_AAYidbcfu3e5g&s" alt="" />
+        <img src={posts && posts.posts[id].imagem} alt="" />
       </div>
 
       <p>{posts && posts.posts[id].conteudo}</p>
