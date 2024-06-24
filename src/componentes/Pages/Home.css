@@ -60,22 +60,30 @@
 
 
 .postagem{
-    width: calc(90% - 10px);
+    /* width: calc(90% - 10px);
     margin: auto;
 
     list-style-type: none;
 
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
     justify-content: space-around;
-    padding: 10px;
+    padding: 10px; */
+
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    flex-direction: row-reverse;
 }
 a{
     text-decoration: none;
     color: #000000;
 }
 .postagem li{
-    width: 20em;
+    width: 23%;
     border-radius: 18px;
 
     transition: .3s;

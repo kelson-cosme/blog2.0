@@ -1,7 +1,7 @@
 import { signOut } from "firebase/auth";
 import { auth, dataBase } from "../Home";
 
-import { getDocs, collection} from "firebase/firestore";
+import { getDocs, collection, deleteDoc, doc, arrayRemove, updateDoc } from "firebase/firestore";
 
 import "./Admin.css"
 
@@ -41,7 +41,7 @@ function Admin() {
               });
             }
               getProdutos(dataBase)
-            }, []);
+            }, [posts]);
 
     const [tituloE, setTituloE] = useState()
     const [descricaoE, setDescricaoE] = useState()
@@ -64,7 +64,22 @@ function Admin() {
 
     function getEditar(){
         setMostrar(false)
+    }
 
+
+    async function excluirCampo(index) {
+        const post = posts.posts[index];
+        const postRef = doc(dataBase, "posts", "63xCjIWESjdLAi4r5Q0i");
+
+        // alerta
+        let confirmacao= confirm("Tem certeza que quer excluir esse post?") //confirmar que o post seja excluido ou não
+
+        if(confirmacao == true){ 
+            // Remova o objeto específico do array
+            await updateDoc(postRef, {
+                posts: arrayRemove(post)
+            });
+        }
     }
 
     return(
@@ -97,7 +112,7 @@ function Admin() {
                             
                             <div className="botoes">
                                 <button  onClick={editar} id={index} className="editar">Editar</button>
-                                <button id={doc.id} className="excluir">Excluir</button>
+                                <button  onClick={() => excluirCampo(index)} id={doc.id} className="excluir">Excluir</button>
                             </div>
 
 

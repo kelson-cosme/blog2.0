@@ -57,7 +57,7 @@ function Home() {
       <h1 className="apresentacao">Nosso Blog</h1>
       <div className="destaque">
         <Link to={"/detalhes/0"}>
-          <div className="destaqueImg"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSknS9XBN_xYlrwQszz68wG_AAYidbcfu3e5g&s" alt="" /></div>
+          <div className="destaqueImg"><img src={posts && posts.posts[0].imagem} alt="" /></div>
 
           <div className="destaqueTexto">
               <p className="categoria">{posts && posts.posts[0].categoria}</p>
@@ -82,7 +82,7 @@ function Home() {
     <ul className="postagem">
       {posts && 
         posts.posts.map( (doc,index) => (
-          <li key={index}>
+          <li style={{display: index == 0 ? "none" : "inline-block"}} key={index}>
             <Link to={`/detalhes/${index}`}>
             <div className="postagemImg"> 
               <img src={doc.imagem} alt="" />
