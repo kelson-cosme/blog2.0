@@ -43,11 +43,19 @@ VITE_STORAGE=seusdados
 npm run dev
 
 ## Uso
-Login: Entre com suas credenciais de administrador.
-Visualizar Posts: Veja todos os posts listados.
-Criar Post: Clique em "Criar Post" para adicionar um novo post.
-Editar Post: Clique no botão "Editar" para modificar um post existente.
+### Usuário para teste: login: teste@gmail.com, senha: 123456
+Login: Entre com suas credenciais de administrador. <br>
+Visualizar Posts: Veja todos os posts listados. <br>
+Criar Post: Clique em "Criar Post" para adicionar um novo post. <br>
+Editar Post: Clique no botão "Editar" para modificar um post existente. <br>
 Excluir Post: Clique no botão "Excluir" para remover um post.
+
+
+
+### Proximas atualizações
+* Trocar a foto no editar
+* style para o mobile
+  
 
 
 
