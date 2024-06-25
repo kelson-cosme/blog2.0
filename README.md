@@ -20,7 +20,7 @@ Este projeto é um Painel Administrativo construído com ReactJs e Firebase. Ele
 
 ## Instalação
 1 Clone o repositório:
-* git clone https://github.com/seuusuario/painel-admin.git
+* git clone https://github.com/kelson-cosme/blog2.0.git
 * cd blog2.0
 
 2 Instale as dependências:
