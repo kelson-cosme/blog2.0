@@ -4,7 +4,7 @@
 
 Este projeto é um Painel Administrativo construído com ReactJs e Firebase. Ele permite que um administrador gerencie posts, incluindo a criação, edição e exclusão de posts. Os posts são buscados e atualizados em tempo real a partir de um banco de dados Firestore.
 
-##Funcionalidades
+## Funcionalidades
 * Autenticação de Usuário: Funcionalidade de login e logout usando Firebase Authentication.
 * Visualizar Posts: Exibir todos os posts buscados do Firestore.
 * Criar Post: Redirecionar para um formulário para criar um novo post.
@@ -18,7 +18,7 @@ Este projeto é um Painel Administrativo construído com ReactJs e Firebase. Ele
 
 
 
-##Instalação
+## Instalação
 1 Clone o repositório:
 * git clone https://github.com/seuusuario/painel-admin.git
 * cd blog2.0
@@ -39,10 +39,10 @@ VITE_AUTH=seusdados
 VITE_ID=seusdados
 VITE_STORAGE=seusdados
 
-##Inicie o servidor de desenvolvimento:
+## Inicie o servidor de desenvolvimento:
 npm run dev
 
-##Uso
+## Uso
 Login: Entre com suas credenciais de administrador.
 Visualizar Posts: Veja todos os posts listados.
 Criar Post: Clique em "Criar Post" para adicionar um novo post.
