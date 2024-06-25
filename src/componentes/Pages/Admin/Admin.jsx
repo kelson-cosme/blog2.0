@@ -1,7 +1,7 @@
 import { signOut } from "firebase/auth";
 import { auth, dataBase } from "../Home";
 
-import { getDocs, collection, deleteDoc, doc, arrayRemove, updateDoc } from "firebase/firestore";
+import { getDocs, collection, doc, arrayRemove, arrayUnion, updateDoc  } from "firebase/firestore";
 
 import "./Admin.css"
 
@@ -30,6 +30,7 @@ function Admin() {
 
 
         const [posts, setPosts] = useState()
+        const [att, setAtt] = useState()
 
           useEffect ( () => {
               async function getProdutos(db){
@@ -38,34 +39,54 @@ function Admin() {
             
               querySnapshot.forEach((doc) => {
                 setPosts(doc.data())
-              });
+                setAtt("")
+            });
+
             }
               getProdutos(dataBase)
-            }, [posts]);
+            }, [att]);
 
     const [tituloE, setTituloE] = useState()
     const [descricaoE, setDescricaoE] = useState()
     const [conteudoE, setConteudoE] = useState()
     const [imagemE, setImagemE] = useState()
     const [mostrar, setMostrar] = useState(false)
+    const [identificador, setIdentificador] = useState()
 
     function editar(e){
-        let identificador = e.target.id
-        setTituloE(posts.posts[identificador].titulo) //valor titulo
-        setDescricaoE(posts.posts[identificador].descricao)
-        setConteudoE(posts.posts[identificador].conteudo)
-        setImagemE(posts.posts[identificador].imagem)
+        setIdentificador(e.target.id)
+        let id = e.target.id
+        setTituloE(posts.posts[id].titulo) //valor titulo
+        setDescricaoE(posts.posts[id].descricao)
+        setConteudoE(posts.posts[id].conteudo)
+        setImagemE(posts.posts[id].imagem)
 
         setMostrar(true)
-
-        const abaEditar = document.getElementById("abaEditar")
-        // abaEditar.style.transform = "translateX(0)"
     }
 
-    function getEditar(){
-        setMostrar(false)
-    }
+    async function getEditar() {
+        setMostrar(false);
+        console.log(identificador)
+        const postRef = doc(dataBase, "posts", "63xCjIWESjdLAi4r5Q0i");
+        const updatedPost = {
+            titulo: tituloE,
+            descricao: descricaoE,
+            conteudo: conteudoE,
+            imagem: imagemE // caso tenha imagem
+        };
+    
+        // para Excluir tera que apagar e adicionar novamente
 
+        //apagando
+        await updateDoc(postRef, {
+            posts: arrayRemove( posts && posts.posts[identificador])
+        });
+        // adicionando
+        await updateDoc(postRef, {
+            posts: arrayUnion(updatedPost)
+        });
+    
+    }
 
     async function excluirCampo(index) {
         const post = posts.posts[index];
@@ -79,6 +100,7 @@ function Admin() {
             await updateDoc(postRef, {
                 posts: arrayRemove(post)
             });
+            setAtt("att") //renderizar a pagina após mudar o valor
         }
     }
 
@@ -87,9 +109,9 @@ function Admin() {
             <div style={{ transform: mostrar != false ? "translateX(0)" : "translateX(102%)" }} id="abaEditar" className="abaEditar">
                 <button onClick={() => setMostrar(false)} className="fechar">X</button>
                 
-                <input type="text" value={tituloE} name="" id="" />
-                <input type="text" value={descricaoE} name="" id="" />
-                <input type="text" value={conteudoE} name="" id="" />
+                <input type="text" onChange={(e) => setTituloE(e.target.value)} value={tituloE} name="" id="" />
+                <input type="text" onChange={(e) => setDescricaoE(e.target.value)} value={descricaoE} name="" id="" />
+                <input type="text" onChange={(e) => setConteudoE(e.target.value)} value={conteudoE} name="" id="" />
                 {/* <img src={imagemE} alt="" /> */}
                 <button onClick={getEditar}>Editar</button>
             </div>

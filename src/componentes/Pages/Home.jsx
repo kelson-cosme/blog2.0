@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react"
 
 import { initializeApp } from 'firebase/app';
-import { getFirestore, getDocs, collection} from "firebase/firestore";
+import { getFirestore, getDocs, collection, startAt} from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
@@ -31,10 +31,10 @@ export const dataBase = getFirestore(app)
 export const auth = getAuth(app);
 
 
-
 function Home() {
 
   const [posts, setPosts] = useState()
+  const [tamanho, setTamanho] = useState()
 
   useEffect ( () => {
     async function getProdutos(db){
@@ -43,28 +43,28 @@ function Home() {
   
     querySnapshot.forEach((doc) => {
       setPosts(doc.data())
+      setTamanho(doc.data().posts.length)
     });
   }
     getProdutos(db)
-  }, []);
 
+},[]);
 
-
+  // setTamanho(posts && posts.posts.length)
   return (
     <>
             <Navbar/>
 
       <h1 className="apresentacao">Nosso Blog</h1>
       <div className="destaque">
-        <Link to={"/detalhes/0"}>
-          <div className="destaqueImg"><img src={posts && posts.posts[0].imagem} alt="" /></div>
-
+        <Link to={`/detalhes/${tamanho - 1}`}>
+          <div className="destaqueImg"><img src={posts && tamanho && posts.posts[tamanho - 1].imagem} alt="" /></div>
           <div className="destaqueTexto">
-              <p className="categoria">{posts && posts.posts[0].categoria}</p>
-            
+              <p className="categoria">{posts && tamanho && posts.posts[tamanho - 1].categoria}</p>
+
             <div className="destaqueTitulo">
-              <h1>{posts && posts.posts[0].titulo}</h1>
-              <p>{posts && posts.posts[0].descricao}</p>
+              <h1>{posts && tamanho && posts.posts[tamanho - 1].titulo}</h1>
+              <p>{posts && tamanho && posts.posts[tamanho - 1].descricao}</p>
               
             </div>
 
@@ -80,9 +80,11 @@ function Home() {
 
 
     <ul className="postagem">
+
+
       {posts && 
         posts.posts.map( (doc,index) => (
-          <li style={{display: index == 0 ? "none" : "inline-block"}} key={index}>
+          <li style={{display: index == tamanho - 1? "none" : "inline-block"}} key={index}>
             <Link to={`/detalhes/${index}`}>
             <div className="postagemImg"> 
               <img src={doc.imagem} alt="" />

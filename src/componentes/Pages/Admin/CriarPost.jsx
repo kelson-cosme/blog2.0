@@ -30,10 +30,11 @@ function CriarPost() {
     const [conteudo, setConteudo] = useState();
     const [imgURL, setImgURL] = useState("");
     const [progressPorcent, setPorgessPorcent] = useState(0);
+    const [categoria, setCategoria] = useState()
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const file = event.target[3]?.files[0];
+        const file = event.target[4]?.files[0];
         if (!file) return;
     
         const storageRef = ref(storage, `images/${file.name}`);
@@ -71,7 +72,7 @@ function CriarPost() {
                     titulo: titulo,
                     descricao: descricao,
                     conteudo: conteudo,
-                    categoria: "tecnologia",
+                    categoria: categoria,
                     imagem: downloadURL
                 })
             });
@@ -81,9 +82,22 @@ function CriarPost() {
         }
     };
 
+    function escolherCategoria(e){ //va
+        setCategoria(e.target.value)
+        console.log(e.target.value)
+    }
+
     return (
         <div className="criarPost">
-            <form onSubmit={handleSubmit} style={{ display: userLogado ? "flex" : "none" }} className="criarPost" action="">
+            <form onSubmit={handleSubmit} value={categoria} style={{ display: userLogado ? "flex" : "none" }} className="criarPost" action="">
+
+                <input onChange={escolherCategoria} type="text" list="categoria" />
+                <datalist id="categoria">
+                    <option value="tecnologia"></option>
+                    <option value="musica"></option>
+                    <option value="outros"></option>
+                </datalist>
+
                 <h1>Titulo</h1>
                 <input onChange={(e) => setTitulo(e.target.value)} type="text" />
             
