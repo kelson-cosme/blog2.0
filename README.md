@@ -33,10 +33,10 @@ Este projeto é um Painel Administrativo construído com ReactJs e Firebase. Ele
 * Configure a autenticação com email e senha no Firebase Authentication.
 * Crie um banco de dados Firestore e adicione uma coleção chamada "posts".
 * Obtenha as credenciais do Firebase e adicione-as em um arquivo .env na raiz do projeto:
-
-VITE_API_KEY=seusdados
-VITE_AUTH=seusdados
-VITE_ID=seusdados
+ 
+VITE_API_KEY=seusdados <br>
+VITE_AUTH=seusdados <br>
+VITE_ID=seusdados <br>
 VITE_STORAGE=seusdados
 
 ## Inicie o servidor de desenvolvimento:
